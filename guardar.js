@@ -2,7 +2,6 @@ let intentsData = null;
 let model = null;
 let words = [];
 let labels = [];
-let context = {}; // Variable para almacenar el contexto de la conversación
 
 // Función para cargar los datos y el modelo
 async function loadData() {
@@ -42,9 +41,11 @@ async function loadData() {
     });
 
     model = await trainModel(training, output);
-    document.getElementById('loading').style.display = 'none';  
-    document.getElementById('user_input').disabled = false;  
-    document.querySelector('button').disabled = false;  
+
+    // Guardar el modelo en formato JSON
+    await saveModel();
+
+    alert('Modelo entrenado y guardado correctamente en un archivo JSON.');
 }
 
 // Tokenización y lematización
@@ -96,39 +97,10 @@ async function trainModel(trainingData, outputData) {
     return model;
 }
 
-// Predicción de la respuesta
-async function predictResponse(input) {
-    const bag = words.map(word => (input.includes(word) ? 1 : 0));
-    const prediction = await model.predict(tf.tensor([bag]));
-    const predictedIndex = prediction.argMax(1).dataSync()[0];
-    const predictedTag = labels[predictedIndex];
-
-    const intent = intentsData.intents.find(intent => intent.tag === predictedTag);
-    return getResponse(intent.responses);
-}
-
-// Obtener respuesta aleatoria
-function getResponse(responses) {
-    return responses[Math.floor(Math.random() * responses.length)];
-}
-
-// Enviar mensaje
-async function sendMessage() {
-    const userInput = document.getElementById('user_input').value;
-    if (userInput.toLowerCase() === 'quit') {
-        return;
-    }
-
-    // Mostrar mensaje del usuario
-    document.getElementById('chat').innerHTML += `<div><strong>You:</strong> ${userInput}</div>`;
-    document.getElementById('user_input').value = '';
-
-    // Obtener respuesta del bot
-    const response = await predictResponse(userInput);
-
-    // Mostrar respuesta del bot
-    document.getElementById('chat').innerHTML += `<div><strong>Bot:</strong> ${response}</div>`;
-    document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
+// Guardar el modelo en formato JSON
+async function saveModel() {
+    const saveResult = await model.save('downloads://chatbot_model');
+    console.log('Modelo guardado:', saveResult);
 }
 
 // Cargar el modelo al iniciar la página

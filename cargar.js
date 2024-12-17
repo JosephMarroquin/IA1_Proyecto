@@ -1,17 +1,17 @@
-let intentsData = null;
 let model = null;
 let words = [];
 let labels = [];
-let context = {}; // Variable para almacenar el contexto de la conversación
+let intentsData = null;
+let context = {}; // Contexto de la conversación
 
-// Función para cargar los datos y el modelo
+// Cargar los datos de los intents (este archivo no cambia)
 async function loadData() {
     const response = await fetch('intents.json');
     intentsData = await response.json();
 
+    // Se deben cargar los datos para las predicciones (palabras y etiquetas)
     const docsX = [];
     const docsY = [];
-
     intentsData.intents.forEach(intent => {
         intent.patterns.forEach(pattern => {
             const wordsInPattern = tokenizeAndStem(pattern);
@@ -25,26 +25,8 @@ async function loadData() {
         }
     });
 
-    words = [...new Set(words)].sort(); 
-    labels = labels.sort(); 
-
-    const training = [];
-    const output = [];
-
-    const outEmpty = Array(labels.length).fill(0);
-
-    docsX.forEach((doc, index) => {
-        const bag = words.map(word => (doc.includes(word) ? 1 : 0));
-        const outputRow = outEmpty.slice();
-        outputRow[labels.indexOf(docsY[index])] = 1;
-        training.push(bag);
-        output.push(outputRow);
-    });
-
-    model = await trainModel(training, output);
-    document.getElementById('loading').style.display = 'none';  
-    document.getElementById('user_input').disabled = false;  
-    document.querySelector('button').disabled = false;  
+    words = [...new Set(words)].sort();
+    labels = labels.sort();
 }
 
 // Tokenización y lematización
@@ -73,27 +55,11 @@ function stem(word) {
     }
 }
 
-// Entrenamiento del modelo
-async function trainModel(trainingData, outputData) {
-    const inputShape = trainingData[0].length;
-    const model = tf.sequential();
-    model.add(tf.layers.dense({ units: 16, inputShape: [inputShape], activation: 'relu' }));
-    model.add(tf.layers.dropout({ rate: 0.2 }));  // Dropout para evitar overfitting
-    model.add(tf.layers.dense({ units: 16, activation: 'relu' }));
-    model.add(tf.layers.dense({ units: labels.length, activation: 'softmax' }));
-
-    model.compile({ loss: 'categoricalCrossentropy', optimizer: 'adam', metrics: ['accuracy'] });
-
-    const xs = tf.tensor(trainingData);
-    const ys = tf.tensor(outputData);
-
-    await model.fit(xs, ys, {
-        epochs: 1000,
-        batchSize: 8,
-        verbose: 1
-    });
-
-    return model;
+// Cargar el modelo previamente guardado
+async function loadModel() {
+    // Cargar el modelo de los archivos JSON y BIN que están en el directorio principal
+    model = await tf.loadLayersModel('chatbot_model.json');  // Modelo JSON
+    console.log('Modelo cargado exitosamente');
 }
 
 // Predicción de la respuesta
@@ -112,7 +78,7 @@ function getResponse(responses) {
     return responses[Math.floor(Math.random() * responses.length)];
 }
 
-// Enviar mensaje
+// Enviar mensaje (función para enviar mensaje del usuario y mostrar la respuesta)
 async function sendMessage() {
     const userInput = document.getElementById('user_input').value;
     if (userInput.toLowerCase() === 'quit') {
@@ -131,5 +97,14 @@ async function sendMessage() {
     document.getElementById('chat').scrollTop = document.getElementById('chat').scrollHeight;
 }
 
-// Cargar el modelo al iniciar la página
-window.onload = loadData;
+// Inicializar el chat
+window.onload = async () => {
+    // Cargar datos y modelo
+    await loadData();
+    await loadModel();  // Cargar el modelo previamente entrenado
+
+    // Activar interfaz de chat
+    document.getElementById('loading').style.display = 'none';  // Ocultar mensaje de carga
+    document.getElementById('user_input').disabled = false;  // Habilitar el campo de entrada
+    document.querySelector('button').disabled = false;  // Habilitar el botón de envío
+};

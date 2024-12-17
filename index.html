@@ -5,14 +5,115 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Chatbot</title>
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        /* Contenedor del chatbot */
+        #chat-container {
+            width: 400px;
+            max-width: 90%;
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            height: 500px;
+        }
+
+        /* Área de chat */
+        #chat {
+            padding: 15px;
+            flex: 1;
+            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        /* Burbujas de mensaje */
+        .message {
+            max-width: 80%;
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 5px;
+            word-wrap: break-word;
+        }
+
+        .user-message {
+            background-color: #007bff;
+            color: white;
+            align-self: flex-end;
+        }
+
+        .bot-message {
+            background-color: #f1f1f1;
+            color: #333;
+            align-self: flex-start;
+        }
+
+        /* Entrada de texto y botón */
+        .input-container {
+            padding: 10px;
+            background-color: #f1f1f1;
+            border-top: 1px solid #ddd;
+            display: flex;
+            align-items: center;
+        }
+
+        #user_input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 14px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 15px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        button:disabled {
+            background-color: #aaa;
+        }
+
+        #loading {
+            text-align: center;
+            padding: 20px;
+            font-size: 18px;
+            color: #007bff;
+        }
+    </style>
 </head>
 <body>
-    <h1>Chatbot</h1>
-    <div id="chat"></div>
-    <input type="text" id="user_input" placeholder="Type a message" disabled />
-    <button onclick="sendMessage()" disabled>Send</button>
-    <div id="loading" style="display: block;">Loading model...</div>
+    <div id="chat-container">
+        <h2 style="padding: 15px; background-color: #007bff; color: white; margin: 0; text-align: center;">Chatbot</h2>
+        <div id="chat"></div>
+        <div class="input-container">
+            <input type="text" id="user_input" placeholder="Type a message" disabled />
+            <button onclick="sendMessage()" disabled>Send</button>
+        </div>
+        <div id="loading" style="display: block;">Loading model...</div>
+    </div>
 
-    <script src="script.js"></script>
+    <script src="cargar.js"></script>
+
 </body>
 </html>

@@ -1,59 +1,182 @@
-{"intents": [
-    {"tag": "greeting",
-     "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day"],
-     "responses": ["Hello, thanks for visiting", "Good to see you again", "Hi there, how can I help?"],
-     "context_set": ""
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": ["Hi", "How are you", "Is anyone there?", "Hello", "Good day"],
+      "responses": ["Hello, thanks for visiting", "Good to see you again", "Hi there, how can I help?"],
+      "context_set": ""
     },
-    {"tag": "goodbye",
-     "patterns": ["Bye", "See you later", "Goodbye"],
-     "responses": ["See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon."]
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye"],
+      "responses": ["See you later, thanks for visiting", "Have a nice day", "Bye! Come back again soon."]
     },
-    {"tag": "thanks",
-     "patterns": ["Thanks", "Thank you", "That's helpful"],
-     "responses": ["Happy to help!", "Any time!", "My pleasure"]
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful"],
+      "responses": ["Happy to help!", "Any time!", "My pleasure"]
     },
-    {"tag": "hours",
-     "patterns": ["What hours are you open?", "What are your hours?", "When are you open?" ],
-     "responses": ["We're open every day 9am-9pm", "Our hours are 9am-9pm every day"]
+    {
+      "tag": "variables",
+      "patterns": ["What is a variable?", "What does variable mean?", "Tell me about variables"],
+      "responses": [
+        "A variable is a container for storing data values in programming.",
+        "In programming, a variable is used to store data like numbers, strings, etc. You can change its value during program execution.",
+        "A variable is like a labeled box where you can keep your data for later use."
+      ]
     },
-    {"tag": "payments",
-     "patterns": ["Do you take credit cards?", "Do you accept Mastercard?", "Are you cash only?" ],
-     "responses": ["We accept VISA, Mastercard and AMEX", "We accept most major credit cards"]
+    {
+      "tag": "if_statement",
+      "patterns": ["What is an if statement?", "How do if statements work?", "Explain an if condition"],
+      "responses": [
+        "An if statement allows you to run a block of code if a condition is true.",
+        "An 'if' statement checks whether a condition is true. If it is, it executes a block of code; otherwise, it skips it.",
+        "In programming, an if statement lets you control the flow of your program based on conditions."
+      ]
     },
-    {"tag": "opentoday",
-     "patterns": ["Are you open today?", "When do you open today?", "What are your hours today?"],
-     "responses": ["We're open every day from 9am-9pm", "Our hours are 9am-9pm every day"]
+    {
+      "tag": "loops",
+      "patterns": ["What is a loop?", "Explain a loop", "What are for loops and while loops?"],
+      "responses": [
+        "A loop is a programming structure that repeats a block of code multiple times.",
+        "In programming, a loop is used to execute a set of instructions repeatedly, either a specific number of times or while a condition is true.",
+        "There are different types of loops in programming: 'for' loops and 'while' loops, each used for different purposes."
+      ]
+    },
+    {
+      "tag": "functions",
+      "patterns": ["What is a function?", "How do functions work?", "Explain functions in programming"],
+      "responses": [
+        "A function is a block of code that performs a specific task and can be called multiple times.",
+        "Functions allow you to organize your code into reusable blocks, making your program more efficient.",
+        "In programming, a function helps you group related code together so you can execute it when needed."
+      ]
+    },
+    {
+      "tag": "arrays",
+      "patterns": ["What is an array?", "Tell me about arrays", "What do arrays do?"],
+      "responses": [
+        "An array is a data structure that can hold multiple values of the same type.",
+        "Arrays allow you to store a list of values in a single variable, like a list of numbers or strings.",
+        "In programming, an array lets you store multiple items under one variable name, with each item accessed by an index."
+      ]
+    },
+    {
+      "tag": "debugging",
+      "patterns": ["What is debugging?", "How do I debug my code?", "Explain debugging"],
+      "responses": [
+        "Debugging is the process of finding and fixing errors or bugs in your code.",
+        "When you debug code, you look for mistakes that prevent your program from running correctly.",
+        "Debugging helps you identify where the code is wrong and correct it to make your program work as expected."
+      ]
+    },
+    {
+      "tag": "syntax",
+      "patterns": ["What is syntax in programming?", "Explain syntax", "What does syntax mean in code?"],
+      "responses": [
+        "Syntax refers to the set of rules that define the structure of statements in a programming language.",
+        "In programming, syntax defines how you write your code so that the computer can understand it.",
+        "Just like grammar in a spoken language, syntax ensures that your code is written correctly."
+      ]
+    },
+    {
+      "tag": "comments",
+      "patterns": ["What are comments in code?", "Why are comments important?", "Explain comments in programming"],
+      "responses": [
+        "Comments are lines in your code that are not executed. They are used to explain and document your code for others (or yourself).",
+        "In programming, comments are used to add notes to your code to make it easier to understand.",
+        "Comments help make your code more readable by explaining the logic behind certain parts of your program."
+      ]
     },
     {
         "tag": "saludo",
-        "patterns": ["Hola", "¿Cómo estás?", "¿Hay alguien ahí?", "Hola, buen día", "Buen día"],
-        "responses": ["Hola, gracias por visitarnos", "Qué bueno verte de nuevo", "Hola, ¿en qué puedo ayudarte?"],
+        "patterns": ["Hola", "¿Cómo estás?", "¿Hay alguien ahí?", "¡Hola!", "Buen día"],
+        "responses": ["Hola, gracias por visitar", "Qué bueno verte de nuevo", "¡Hola, cómo puedo ayudarte?"],
         "context_set": ""
       },
       {
         "tag": "despedida",
         "patterns": ["Adiós", "Hasta luego", "Chao"],
-        "responses": ["Hasta luego, gracias por visitarnos", "Que tengas un buen día", "¡Adiós! Vuelve pronto."]
+        "responses": ["Hasta luego, gracias por visitar", "Que tengas un buen día", "¡Adiós! Vuelve pronto."]
       },
       {
         "tag": "agradecimiento",
-        "patterns": ["Gracias", "Te lo agradezco", "Eso me ayuda mucho"],
-        "responses": ["¡Con gusto!", "¡Siempre a tu servicio!", "Un placer"]
+        "patterns": ["Gracias", "Te lo agradezco", "Eso fue útil"],
+        "responses": ["¡Encantado de ayudar!", "¡A la orden!", "Un placer"]
       },
       {
-        "tag": "horarios",
-        "patterns": ["¿Qué horas están abiertas?", "¿Cuáles son sus horarios?", "¿Cuándo están abiertas?"],
-        "responses": ["Estamos abiertos todos los días de 9am a 9pm", "Nuestro horario es de 9am a 9pm todos los días"]
+        "tag": "variables",
+        "patterns": ["¿Qué es una variable?", "¿Qué significa variable?", "Háblame sobre las variables"],
+        "responses": [
+          "Una variable es un contenedor para almacenar valores de datos en programación.",
+          "En programación, una variable se utiliza para guardar datos como números, cadenas de texto, etc. Puedes cambiar su valor durante la ejecución del programa.",
+          "Una variable es como una caja etiquetada donde puedes guardar datos para usarlos más tarde."
+        ]
       },
       {
-        "tag": "pagos",
-        "patterns": ["¿Aceptan tarjetas de crédito?", "¿Aceptan Mastercard?", "¿Solo en efectivo?"],
-        "responses": ["Aceptamos VISA, Mastercard y AMEX", "Aceptamos la mayoría de tarjetas de crédito"]
+        "tag": "sentencia_if",
+        "patterns": ["¿Qué es una sentencia if?", "¿Cómo funcionan las sentencias if?", "Explica una condición if"],
+        "responses": [
+          "Una sentencia if te permite ejecutar un bloque de código si una condición es verdadera.",
+          "Una sentencia 'if' verifica si una condición es verdadera. Si lo es, ejecuta un bloque de código; si no, lo omite.",
+          "En programación, una sentencia if te permite controlar el flujo de tu programa basado en condiciones."
+        ]
       },
       {
-        "tag": "abiertohoy",
-        "patterns": ["¿Están abiertos hoy?", "¿A qué hora abren hoy?", "¿Cuál es su horario hoy?"],
-        "responses": ["Estamos abiertos todos los días de 9am a 9pm", "Nuestro horario es de 9am a 9pm todos los días"]
+        "tag": "bucles",
+        "patterns": ["¿Qué es un bucle?", "Explica un bucle", "¿Qué son los bucles for y while?"],
+        "responses": [
+          "Un bucle es una estructura de programación que repite un bloque de código varias veces.",
+          "En programación, un bucle se usa para ejecutar un conjunto de instrucciones repetidamente, ya sea un número específico de veces o mientras se cumpla una condición.",
+          "Existen diferentes tipos de bucles en programación: los bucles 'for' y 'while', cada uno se usa para diferentes propósitos."
+        ]
+      },
+      {
+        "tag": "funciones",
+        "patterns": ["¿Qué es una función?", "¿Cómo funcionan las funciones?", "Explica las funciones en programación"],
+        "responses": [
+          "Una función es un bloque de código que realiza una tarea específica y puede ser llamado varias veces.",
+          "Las funciones permiten organizar tu código en bloques reutilizables, lo que hace tu programa más eficiente.",
+          "En programación, una función te ayuda a agrupar código relacionado para poder ejecutarlo cuando lo necesites."
+        ]
+      },
+      {
+        "tag": "arreglos",
+        "patterns": ["¿Qué es un arreglo?", "Háblame sobre los arreglos", "¿Qué hacen los arreglos?"],
+        "responses": [
+          "Un arreglo es una estructura de datos que puede almacenar múltiples valores del mismo tipo.",
+          "Los arreglos permiten guardar una lista de valores en una sola variable, como una lista de números o cadenas de texto.",
+          "En programación, un arreglo te permite almacenar varios elementos bajo un solo nombre de variable, y cada elemento se accede por su índice."
+        ]
+      },
+      {
+        "tag": "depuracion",
+        "patterns": ["¿Qué es depurar?", "¿Cómo depuro mi código?", "Explica la depuración"],
+        "responses": [
+          "Depurar es el proceso de encontrar y corregir errores o fallos en tu código.",
+          "Cuando depuras tu código, buscas los errores que impiden que tu programa funcione correctamente.",
+          "La depuración te ayuda a identificar dónde está el problema y corregirlo para que tu programa funcione como se espera."
+        ]
+      },
+      {
+        "tag": "sintaxis",
+        "patterns": ["¿Qué es la sintaxis en programación?", "Explica la sintaxis", "¿Qué significa sintaxis en el código?"],
+        "responses": [
+          "La sintaxis se refiere al conjunto de reglas que definen la estructura de las declaraciones en un lenguaje de programación.",
+          "En programación, la sintaxis define cómo escribir tu código para que la computadora pueda entenderlo.",
+          "Al igual que la gramática en un idioma hablado, la sintaxis asegura que tu código esté escrito correctamente."
+        ]
+      },
+      {
+        "tag": "comentarios",
+        "patterns": ["¿Qué son los comentarios en el código?", "¿Por qué son importantes los comentarios?", "Explica los comentarios en programación"],
+        "responses": [
+          "Los comentarios son líneas en tu código que no se ejecutan. Se usan para explicar y documentar tu código para otros (o para ti mismo).",
+          "En programación, los comentarios se usan para agregar notas a tu código y hacerlo más comprensible.",
+          "Los comentarios ayudan a hacer tu código más legible, explicando la lógica detrás de ciertas partes del programa."
+        ]
       }
-]
+  ]
 }
+
+
